@@ -20,16 +20,17 @@ $(document).ready(() => {
         event.preventDefault();
         $.get("/articles", data => {
             for (let i = 0; i < data.length; i++) {
-                $("#article-list").prepend(`<p data-id=${data[i]._id}><a href=${data[i].link} target=_blank>${data[i].title}</a><br>${data[i].summary}</p>`);
+                $("#article-list").append(`<p data-id=${data[i]._id}><a href=${data[i].link} target=_blank>${data[i].title}</a><br>${data[i].summary}</p>`);
             }
         });
+        $("h4").addClass("hide");
         $("body").addClass("hide-bg");
     });
 
     // opens the comment modal when p tag is clicked to view, save, or delete comment
     $(document).on("click", "p", function() {
         let id = $(this).attr("data-id");
-        
+        console.log("article id: ", id);
         $("#comment-modal").modal("open");
         
         let commentId;
@@ -38,6 +39,7 @@ $(document).ready(() => {
                 $("#comment-title").val(data.comment.title);
                 $("#comment-body").val(data.comment.body);
                 commentId = data.comment._id;
+                console.log("comment id: ", commentId);
             }
         });
 

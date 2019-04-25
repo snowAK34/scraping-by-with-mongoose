@@ -3,7 +3,8 @@ const Schema = mongoose.Schema;
 
 const ArticleSchema = new Schema({
     title: {
-        type: String
+        type: String,
+        unique: true
     },
     link: {
         type: String
