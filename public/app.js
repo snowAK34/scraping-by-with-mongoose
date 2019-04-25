@@ -1,37 +1,39 @@
-$(document).ready(function() {
-
+$(document).ready(() => {
    
-    const getArticles = () => {
+    $("#scrape-complete").modal();
+    $("#comment-modal").modal();
 
-        $.get("/articles", function(data) {
-            console.log(data)
-            for (let i = 0; i < data.length; i++) {
-                $("#article-list").append(`<p data-id=${data[i]._id}><a href=${data[i].link} target=_blank>${data[i].title}</a><br>${data[i].summary}</p>`);
-            }
-        });
-    }
-
+    // run scraper on button click
     $("#scrape-btn").on("click", event => {
         event.preventDefault();
-
+        
         $.ajax({
             method: "GET",
             url: "/scrape"
-        }).then(getArticles());
-
+        }).then(
+            $("#scrape-complete").modal("open")
+        );
     });
 
-    $(".modal").modal();
+    // click button to populate article list from database
+    $("#show-articles").on("click", function(event) {
+        event.preventDefault();
+        $.get("/articles", data => {
+            for (let i = 0; i < data.length; i++) {
+                $("#article-list").prepend(`<p data-id=${data[i]._id}><a href=${data[i].link} target=_blank>${data[i].title}</a><br>${data[i].summary}</p>`);
+            }
+        });
+        $("body").addClass("hide-bg");
+    });
 
+    // opens the comment modal when p tag is clicked to view, save, or delete comment
     $(document).on("click", "p", function() {
         let id = $(this).attr("data-id");
-        console.log(id);
         
-        $(".modal").modal("open");
+        $("#comment-modal").modal("open");
         
         let commentId;
-        $.get("/article/" + id, function(data) {
-            console.log(data);
+        $.get("/article/" + id, data => {
             if (data.comment) {
                 $("#comment-title").val(data.comment.title);
                 $("#comment-body").val(data.comment.body);
@@ -48,30 +50,29 @@ $(document).ready(function() {
                     title: $("#comment-title").val(),
                     body: $("#comment-body").val()
                 }
-            }).then(function(res) {
+            }).then(() => {
                 $("#comment-title").val("");
                 $("#comment-body").val("");
-                $(".modal").modal("close");
+                $("#comment-modal").modal("close");
             });
         });
 
         $("#delete-comment").on("click", event => {
-            console.log(commentId);
             event.preventDefault();
             $.ajax({
                 method: "DELETE",
                 url: "/comment/" + commentId,
-            }).then(function(res) {
+            }).then(() => {
                 $("#comment-title").val("");
                 $("#comment-body").val("");
-                $(".modal").modal("close");
+                $("#comment-modal").modal("close");
             });
         });
     });
 
-    $("#close-modal").on("click", function() {
+    $("#close-modal").on("click", () => {
         $("#comment-title").val("");
         $("#comment-body").val("");
-        $(".modal").modal("close");
+        $("#comment-modal").modal("close");
     });
 });

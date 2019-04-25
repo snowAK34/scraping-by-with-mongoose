@@ -1,34 +1,41 @@
 <div class="container">
 
+    <div id="title" class="row">
+        <h1>Sounders News</h1>
+    </div>
+
     <div class="row">
-        <button id="scrape-btn">Scrape Articles</button>          
+        <button id="scrape-btn">Scrape Articles</button>
+        <button id="show-articles">Show Articles</button>
+        <p>Click article summary to add a comment!</p>
     </div>
 
     <div class="row">
         <div class="col">
             <div id="article-list">
-
+                <h4>Use the buttons to get some articles!</h4>
             </div>
-            <div id="modal1" class="modal">
-               
-                    <div class="modal-content">
-                        <form>
-                            <input name="title" id="comment-title" type="text" placeholder="Title">
-                            <input name="comment" id="comment-body" type="text" placeholder="Comment">
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button id="save-comment">Save</button>
-                        <button id="close-modal">Close</button>
-                        <button id="delete-comment" class="modal-close">Delete Note</button>
-                    </div>
-        
+            <div id="scrape-complete" class="modal">
+                <div class="modal-content">
+                    <h4>Scrape Complete!</h4>
+                </div>
+                <div class="modal-footer">
+                    <a href="#!" class="modal-close waves-effect waves-green btn-flat">Ok</a>
+                </div>
+            </div>
+            <div id="comment-modal" class="modal">
+                <div class="modal-content">
+                    <form>
+                        <input name="title" id="comment-title" type="text" placeholder="Title">
+                        <input name="comment" id="comment-body" type="text" placeholder="Comment">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button id="save-comment">Save</button>
+                    <button id="close-modal">Close</button>
+                    <button id="delete-comment" class="modal-close">Delete Note</button>
+                </div>
             </div>
         </div>
-
-        {{!-- <div class="col">
-            
-        </div> --}}
     </div>
-
 </div>

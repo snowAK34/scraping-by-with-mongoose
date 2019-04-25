@@ -1,0 +1,29 @@
+body {
+    box-sizing: border-box;
+    margin: 0;
+    background-image: url(image.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: #54d354;
+}
+
+body.hide-bg {
+    background-image: none;
+}
+
+.row {
+    background-color: white;
+    border: solid thin grey;
+    margin: 20px auto;
+    padding: 15px;
+}
+
+#title {
+    text-align: center;
+    color: #2e4c91;
+}
+
+button {
+    padding: 5px;
+}
