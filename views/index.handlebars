@@ -1,11 +1,34 @@
 <div class="container">
 
-<button id="scrape-btn">Scrape Articles</button>
+    <div class="row">
+        <button id="scrape-btn">Scrape Articles</button>          
+    </div>
 
-<div id="article-list">
+    <div class="row">
+        <div class="col">
+            <div id="article-list">
 
+            </div>
+            <div id="modal1" class="modal">
+               
+                    <div class="modal-content">
+                        <form>
+                            <input name="title" id="comment-title" type="text" placeholder="Title">
+                            <input name="comment" id="comment-body" type="text" placeholder="Comment">
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="save-comment">Save</button>
+                        <button id="close-modal">Close</button>
+                        <button id="delete-comment" class="modal-close">Delete Note</button>
+                    </div>
+        
+            </div>
+        </div>
 
-
-</div>
+        {{!-- <div class="col">
+            
+        </div> --}}
+    </div>
 
 </div>
