@@ -27,48 +27,49 @@ $(document).ready(() => {
         $("body").addClass("hide-bg");
     });
 
+let id;
+let commentId;
+
     // opens the comment modal when p tag is clicked to view, save, or delete comment
     $(document).on("click", "p", function() {
-        let id = $(this).attr("data-id");
-        console.log("article id: ", id);
+        id = $(this).attr("data-id");
+        
         $("#comment-modal").modal("open");
         
-        let commentId;
         $.get("/article/" + id, data => {
             if (data.comment) {
                 $("#comment-title").val(data.comment.title);
                 $("#comment-body").val(data.comment.body);
                 commentId = data.comment._id;
-                console.log("comment id: ", commentId);
             }
         });
+    });
 
-        $("#save-comment").on("click", event => {
-            event.preventDefault();
-            $.ajax({
-                method: "POST",
-                url: "/article/" + id,
-                data: {
-                    title: $("#comment-title").val(),
-                    body: $("#comment-body").val()
-                }
-            }).then(() => {
-                $("#comment-title").val("");
-                $("#comment-body").val("");
-                $("#comment-modal").modal("close");
-            });
+    $("#save-comment").on("click", event => {
+        event.preventDefault();
+        $.ajax({
+            method: "POST",
+            url: "/article/" + id,
+            data: {
+                title: $("#comment-title").val(),
+                body: $("#comment-body").val()
+            }
+        }).then(() => {
+            $("#comment-title").val("");
+            $("#comment-body").val("");
+            $("#comment-modal").modal("close");
         });
+    });
 
-        $("#delete-comment").on("click", event => {
-            event.preventDefault();
-            $.ajax({
-                method: "DELETE",
-                url: "/comment/" + commentId,
-            }).then(() => {
-                $("#comment-title").val("");
-                $("#comment-body").val("");
-                $("#comment-modal").modal("close");
-            });
+    $("#delete-comment").on("click", event => {
+        event.preventDefault();
+        $.ajax({
+            method: "DELETE",
+            url: "/comment/" + commentId,
+        }).then(() => {
+            $("#comment-title").val("");
+            $("#comment-body").val("");
+            $("#comment-modal").modal("close");
         });
     });
 
